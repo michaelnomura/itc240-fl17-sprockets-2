@@ -1,5 +1,5 @@
 <?php include 'includes/config.php'?>
-<?php include 'includes/header.php'?>
+<?php get_header()?>
     <div class="container">
 
       <div class="bg-faded p-4 my-4">
@@ -75,4 +75,4 @@
       </div>
 
     </div>
-<?php include 'includes/footer.php'?>
+<?php get_footer()?>

@@ -17,13 +17,13 @@
  */
 
 #EDIT THE FOLLOWING:
-$toAddress = "yourname@example.com";  //place your/your client's email address here
-$toName = "CLIENT NAME HERE"; //place your client's name here
-$website = "CLIENT WEBSITE NAME HERE";  //place NAME of your client's website here
+$toAddress = "mnnomura@gmail.com";  //place your/your client's email address here
+$toName = "Michael"; //place your client's name here
+$website = "ITS 240";  //place NAME of your client's website here
 #--------------END CONFIG AREA ------------------------#
 $sendEmail = TRUE; //if true, will send an email, otherwise just show user data.
 $dateFeedback = true; //if true will show date/time with reCAPTCHA error - style a div with class of dateFeedback
-include_once 'config.php'; #site keys go inside your config.php file
+//include_once 'config.php'; #site keys go inside your config.php file
 include 'contact-lib/contact_include.php'; #complex unsightly code moved here
 $response = null;
 $reCaptcha = new ReCaptcha($secretKey);
@@ -40,9 +40,13 @@ if ($response != null && $response->success)
     ?>
     <!-- START HTML FEEDBACK -->
     <div class="contact-feedback">
-        <h2>Your Comments Have Been Received!</h2>
-        <p>Thanks for the input!</p>
-        <p>We'll respond via email within 48 hours, if you requested information.</p>
+        <hr class="divider">
+        <h2 class="text-center text-lg text-uppercase my-0">
+            <strong>Message Sent</strong>
+        </h2>
+        <hr class="divider">
+    <p class="text-center">We\'ll get back to you within 48 hours</p>
+    <p class="text-center"><a href="">Exit</a></p>
     </div>    
     <!-- END HTML FEEDBACK -->        
     <?php
@@ -55,29 +59,36 @@ if ($response != null && $response->success)
  
 ?>
 	<!-- START HTML FORM -->
-	<form action="<?php echo basename($_SERVER['PHP_SELF']); ?>" method="post">
-	<div>
-		<label>
-			Name:<br /><input type="text" name="Name" required="required" placeholder="Full Name (required)" title="Name is required" tabindex="10" size="44" autofocus />
-		</label>
-	</div>
-	<div>	
-		<label>
-			Email:<br /><input type="email" name="Email" required="required" placeholder="Email (required)" title="A valid email is required" tabindex="20" size="44" />
-		</label>
-	</div>
-	<!-- below change the HTML to your form elements - only 'Name' & 'Email' (above) are significant -->
-	<div>	
-		<label>
-			Comments:<br /><textarea name="Comments" cols="36" rows="4" placeholder="Your comments are important to us!" tabindex="30"></textarea>
-		</label>
-	</div>	
-	<div><?=$feedback?></div>
-    <div class="g-recaptcha" data-sitekey="<?=$siteKey;?>"></div> 
-	<div>
-		<input type="submit" value="submit" />
-	</div>
-    </form>
+<hr class="divider">
+        <h2 class="text-center text-lg text-uppercase my-0">Contact
+          <strong>Form</strong>
+        </h2>
+        <hr class="divider">
+        <form action="" method="post">
+          <div class="row">
+            <div class="form-group col-lg-6">
+              <label class="text-heading">First Name</label>
+              <input type="text" name="Name" class="form-control" autofocus>
+            </div>
+
+            <div class="form-group col-lg-6">
+              <label class="text-heading">Email Address</label>
+              <input type="email" name="Email" class="form-control">
+            </div>
+            <div class="clearfix"></div>
+            <div class="form-group col-lg-12">
+              <label class="text-heading">Comments</label>
+              <textarea class="form-control" name="Comments" rows="6"></textarea>
+            </div>
+                            
+            <div><?=$feedback?></div>
+            <div class="g-recaptcha" data-sitekey="<?=$siteKey;?>"></div>   
+            <div class="form-group col-lg-12">
+              <button type="submit" class="btn btn-secondary">Submit</button>
+            </div>
+          </div>
+        </form>
+
 	<!-- END HTML FORM -->
     <script type="text/javascript"
         src="https://www.google.com/recaptcha/api.js?hl=en">

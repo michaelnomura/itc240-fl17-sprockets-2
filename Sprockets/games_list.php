@@ -1,5 +1,5 @@
 <?php include 'includes/config.php';?>
-<?php include 'includes/header.php';?>
+<?php get_header();?>
 
 <h1><?=$pageID?></h1>
 <?php
@@ -19,7 +19,7 @@ if(mysqli_num_rows($result) > 0)//at least one record
     {
         echo '<p>';
 
-        echo '<a href="games_view.php?id=' . $row['PS4GamesID'] . '">' . $row['Title'] . '</a>' . '</b> ';
+        echo 'Title: <b>' . '<a href="games_view.php?id=' . $row['PS4GamesID'] . '">' . $row['Title'] . '</a>' . '</b> ';
         echo 'Release Date: <b>' . $row['ReleaseDate'] . '</b> ';
         echo 'Genre: <b>' . $row['Genre'] . '</b> ';
 
@@ -38,4 +38,4 @@ if(mysqli_num_rows($result) > 0)//at least one record
 @mysqli_close($iConn);
 
 ?>
-<?php include 'includes/footer.php';?>
+<?php get_footer();?>

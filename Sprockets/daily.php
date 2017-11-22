@@ -1,6 +1,7 @@
 <?php
   //daily php code goes here 
 include 'includes/config.php';
+get_header();
 
 if(isset($_GET['day']))
 {//show selected day
@@ -80,7 +81,7 @@ switch($day)
 }
     
 ?>
-<?php include 'includes/header.php'?>
+
 
 
 <h3>Daily</h3>
@@ -118,4 +119,4 @@ switch($day)
 
 
 
-    <?php include 'includes/footer.php'?>
+    <?php get_footer()?>

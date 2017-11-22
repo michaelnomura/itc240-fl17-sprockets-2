@@ -11,14 +11,14 @@
     <title><?=$config->title?></title>
 
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?=$config->theme_virtual?>vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom fonts for this template -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
 
     <!-- Custom styles for this template -->
-    <link href="css/business-casual.css" rel="stylesheet">
+    <link href="<?=$config->theme_virtual?>css/business-casual.css" rel="stylesheet">
 
   </head>
 
@@ -38,30 +38,33 @@
           <ul class="navbar-nav mx-auto">
             <li class="nav-item <?=$config->index?> px-lg-4">
               <a class="nav-link text-uppercase text-expanded" href="index.php">Home
+                <span class="sr-only">(current)</span>
               </a>
             </li>
             <li class="nav-item <?=$config->customers?> px-lg-4">
               <a class="nav-link text-uppercase text-expanded" href="customers.php">Customers</a>
-               
-            </li>
-            <li class="nav-item <?=$config->daily?> px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="daily.php">daily</a>
-               
             </li>
             <li class="nav-item <?=$config->blog?> px-lg-4">
               <a class="nav-link text-uppercase text-expanded" href="appointment.php">Appointment</a>
-    
             </li>
-            <li class="nav-item <?=$config->contact?> px-lg-4">
+            <li class="nav-item px-lg-4">
               <a class="nav-link text-uppercase text-expanded" href="contact.php">Contact</a>
-                
             </li>
-            <?=$widget?>
+            <li class="nav-item px-lg-4">
+              <a class="nav-link text-uppercase text-expanded" href="daily.php">Daily</a>
+            </li>  
           </ul>
         </div>
       </div>
     </nav>
 
     <div class="container">
-      <div class="bg-faded p-4 my-4">
-      
+        <div class="bg-faded p-4 my-4">
+      <!-- header ends here -->
+        
+        
+        
+        
+        
+        
+        

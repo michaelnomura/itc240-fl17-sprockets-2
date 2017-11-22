@@ -1,4 +1,4 @@
-<?php include 'includes/header.php'?>
+<?php get_header()?>
 
     <div class="container">
 
@@ -60,4 +60,4 @@
       </div>
 
     </div>
-<?php include 'includes/footer.php'?>
+<?php get_footer?>
