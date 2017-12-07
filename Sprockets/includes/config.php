@@ -12,6 +12,18 @@ ob_start();
 
 define('DEBUG',true); #we want to see all errors
 
+
+//START CONFIG SNIPPET #1
+
+define('SECURE',false); #force secure, https, for all site pages
+
+define('PREFIX', 'sprockets_fl17_'); #Adds uniqueness to your DB table names.  Limits hackability, naming collisions
+
+header("Cache-Control: no-cache");header("Expires: -1");#Helps stop browser & proxy caching
+
+//END CONFIG SNIPPET #1
+
+
 include 'credentials.php';//stores db info
 include 'common.php';//stores favorite functions
 
@@ -35,12 +47,27 @@ $config->physical_path = $_SERVER["DOCUMENT_ROOT"] . '/' . $sub_folder;
 $config->virtual_path = 'http://' . $_SERVER["HTTP_HOST"] . '/' . $sub_folder;
 $config->theme = 'BusinessCasual';//sub folder to themes
 
+
+//START CONFIG SNIPPET #2
+
+define('ADMIN_PATH', $config->virtual_path . '/admin/'); # Could change to sub folder
+define('INCLUDE_PATH', $config->physical_path . '/includes/');
+
+//force secure website
+if (SECURE && $_SERVER['SERVER_PORT'] != 443) {#force HTTPS
+	header("Location: https://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+}
+
+//END CONFIG SNIPPET #2
+
+
 //END NEW THEME STUFF
 
 
 //set website defaults
 $config->title = THIS_PAGE;
 $config->banner = 'Sprockets';
+$config->loadhead = '';//place items in <head> element
 $config->index = '';
 $config->about = '';
 $config->daily = '';
@@ -70,6 +97,10 @@ switch(THIS_PAGE){
     break;
     case 'index.php':
         $config->title = 'Index Page';
+        $config->index = 'active';
+    break;
+    case 'game_pager.php':
+        $config->title = 'Game Pager Page';
         $config->index = 'active';
     break;
         
@@ -103,56 +134,6 @@ $siteKey = "6LfelDYUAAAAAFzeIMeojqqa-pvfqpphTV-I3-0x";
 $secretKey = "6LfelDYUAAAAAImbHOahvzq9ah4WdBLJGqtFy01t";
 
 
-//index.php
-include 'planets.php';
-include 'random_rotate.php';
-
-$heros[] = '<img src="includes/images/coulson.png" />';
-$heros[] = '<img src="includes/images/fury.png" />';
-$heros[] = '<img src="includes/images/hulk.png" />';
-$heros[] = '<img src="includes/images/thor.png" />';
-$heros[] = '<img src="includes/images/black-widow.png" />';
-$heros[] = '<img src="includes/images/captain-america.png" />';
-$heros[] = '<img src="includes/images/machine.png" />';
-$heros[] = '<img src="includes/images/iron-man.png" />';
-$heros[] = '<img src="includes/images/loki.png" />';
-$heros[] = '<img src="includes/images/giant.png" />';
-$heros[] = '<img src="includes/images/hawkeye.png" />';
-
-$hero = randomize($heros);
-
-$widget = '';
-
-$planets = rotate($planets);
-
-switch(THIS_PAGE){
-    case 'contact.php':
-        $widget = '<li class="nav-item px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="contact.php">';       
-        $widget .= $hero;
-        $widget .= '</a></li>';
-    break;
-    case 'customers.php':
-        
-        $hero = '';
-        $planets = '';
-    break;
-    case 'daily.php';
-        $hero = '';
-        $planets = '';
-    break;
-    case 'appointment.php':
-        $widget = '<li class="nav-item px-lg-4">
-              <a class="nav-link text-uppercase text-expanded" href="appointment.php">';       
-        $widget .= $hero;
-        $widget .= '</a></li>';
-
-    break;
-    case 'index.php':
-        $hero = '';
-        $planets = '';
-    break;
-}
 
 //START NEW THEME STUFF
 //creates theme virtual path for theme assets, JS, CSS, images
@@ -161,5 +142,31 @@ $config->theme_virtual = $config->virtual_path . '/themes/' . $config->theme . '
 
 
 
+/*
+ * adminWidget allows clients to get to admin page from anywhere
+ * code will show/hide based on logged in status
+*/
+/*
+ * adminWidget allows clients to get to admin page from anywhere
+ * code will show/hide based on logged in status
+*/
+if(startSession() && isset($_SESSION['AdminID']))
+{#add admin logged in info to sidebar or nav
+    
+    $config->adminWidget = '
 
-?>
+
+        <a href="' . ADMIN_PATH . 'admin_dashboard.php">ADMIN</a> 
+        <a href="' . ADMIN_PATH . 'admin_logout.php">LOGOUT</a>
+
+
+    ';
+}else{//show login (YOU MAY WANT TO SET TO EMPTY STRING FOR SECURITY)
+    
+    $config->adminWidget = '
+
+        <a  href="' . ADMIN_PATH . 'admin_login.php">LOGIN</a>
+
+    ';
+
+}
